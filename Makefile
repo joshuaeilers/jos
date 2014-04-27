@@ -1,25 +1,38 @@
-EXE=myos.bin
-ISO=myos.iso
-CC=i686-elf-gcc 
-CFLAGS=-c -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-AS=i686-elf-as
+OBJ = boot.o \
+      main.o \
+      string.o \
+      term.o
+TARGET = jos.bin
+ISO = jos.iso
+LFLAGS = -T linker.ld -ffreestanding -O2 -nostdlib -lgcc
+CC = i686-elf-gcc 
+CFLAGS = -c -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+AS = i686-elf-as
+GRUB = grub-mkrescue
+QEMU = qemu-system-i386
+QFLAGS = -kernel
 
-default: $(EXE)
+default: $(TARGET)
 
-$(EXE): boot.o main.o
-	$(CC) -T linker.ld -o $(EXE) -ffreestanding -O2 -nostdlib boot.o main.o -lgcc
+$(TARGET): $(OBJ)
+	$(CC) $(LFLAGS) $(OBJ) -o $@
 
-boot.o: boot.s
-	$(AS) boot.s -o boot.o
+.s.o:
+	$(AS) $< -o $@
 
-main.o: main.c main.h string.h term.h
-	$(CC) $(CFLAGS) main.c -o main.o 
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
 
-term.o: term.c term.h
-	$(CC) $(CFLAGS) term.c -o term.o 
+iso:
+	mkdir -p isodir
+	mkdir -p isodir/boot
+	cp $(TARGET) isodir/boot/$(TARGET)
+	mkdir -p isodir/boot/grub
+	cp grub.cfg isodir/boot/grub/grub.cfg
+	$(GRUB) -o $(ISO) isodir
 
-string.o: string.c string.h term.h
-	$(CC) $(CFLAGS) string.c -o string.o
+run:
+	$(QEMU) $(QFLAGS) $(TARGET)
 
 clean:
-	rm *.o $(EXE) $(ISO)
+	rm $(OBJ) $(TARGET) $(ISO)

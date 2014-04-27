@@ -2,6 +2,5 @@
 #define _MAIN_H_
 
 void main();
-void term_init();
 
 #endif
