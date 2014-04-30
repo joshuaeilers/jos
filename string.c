@@ -34,11 +34,11 @@ size_t itoa(char *buf, uint32_t x) {
 }
 
 size_t itoh(char *buf, uint32_t x) {
-	char hex[16] = "012345789ABCDEF";
+	char hex[17] = "0123456789ABCDEF";
+	char tmp[11]; // FFFFFFFF (8 digits) is longest uint32_t
 	size_t i = 0;
 	size_t j = 0;
 	size_t n;
-	char tmp[11]; // FFFFFFFF (8 digits) is longest uint32_t
 
 	// only handling positive integers for now
 
@@ -47,7 +47,8 @@ size_t itoh(char *buf, uint32_t x) {
 
 	do {
 		n = x % 16;
-		tmp[i++] = hex[n - 1];
+		tmp[i] = hex[n];
+		i++;
 	} while (x /= 16);
 
 	while (i) {
@@ -56,7 +57,7 @@ size_t itoh(char *buf, uint32_t x) {
 
 	buf[j] = '\0';
 
-	return j;
+	return j - 2;
 }
 
 void putchar(char c) {
