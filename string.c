@@ -15,7 +15,7 @@ size_t itoa(char *buf, uint32_t x) {
 	size_t i = 0;
 	size_t j = 0;
 	char n;
-	char tmp[11]; // 4294967295 (10 digits) is longest uint32_t
+	char tmp[11]; // 4294967295\0 (11 digits) is longest uint32_t
 
 	// only handling positive integers for now
 
@@ -34,8 +34,8 @@ size_t itoa(char *buf, uint32_t x) {
 }
 
 size_t itoh(char *buf, uint32_t x) {
-	char hex[17] = "0123456789ABCDEF";
-	char tmp[11]; // FFFFFFFF (8 digits) is longest uint32_t
+	char *hex = "0123456789ABCDEF";
+	char tmp[11]; // 0xFFFFFFFF\0 (11 digits) is longest uint32_t
 	size_t i = 0;
 	size_t j = 0;
 	size_t n;
@@ -61,28 +61,7 @@ size_t itoh(char *buf, uint32_t x) {
 }
 
 void putchar(char c) {
-	if (c == '\n') {
-		/*
-		 * Check if end of screen is reached
-		 */
-		term_row++;
-		term_col = 0;
-		return;
-	}
-
-	/*
-	 * Check if end of screen is reached
-	 */
-
-	term_buf[term_row * VGA_WIDTH + term_col] = term_rgb << 8 | c;
-
-	if (++term_col == VGA_WIDTH) {
-		term_col = 0;
-
-		if (++term_row == VGA_HEIGHT) {
-			term_row = 0;
-		}
-	}
+	term_entry(c); // normally would place c at stdout
 }
 
 void puts(const char *s) {
@@ -97,7 +76,7 @@ void puts(const char *s) {
 void printf(const char *s, uint32_t x) {
 	size_t i;
 	size_t len = strlen(s);
-	char buf[16];
+	char buf[11];
 
 	for (i = 0; i < len; i++) {
 		if (s[i] == '%') {

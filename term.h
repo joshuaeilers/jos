@@ -15,5 +15,6 @@ extern uint8_t term_rgb;
 extern uint16_t *term_buf;
 
 void term_init();
+void term_entry(char);
 
 #endif
