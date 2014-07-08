@@ -5,6 +5,6 @@
 
 void putchar(char);
 void puts(const char *);
-void printf(const char *, uint32_t);
+void printf(const char *, ...);
 
 #endif
