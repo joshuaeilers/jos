@@ -1,20 +1,14 @@
 #ifndef _TERM_H_
 #define _TERM_H_
 
-#include <stddef.h>
-#include <stdint.h>
-
+#define term_char(c, rgb) c | rgb << 8;
+#define VGA_MEM_START 0xb8000
 #define VGA_HEIGHT 24
 #define VGA_WIDTH 80
 #define BG 0
 #define FG 2
 
-extern size_t term_row;
-extern size_t term_col;
-extern uint8_t term_rgb;
-extern uint16_t *term_buf;
-
 void term_init();
-void term_entry(char);
+void term_putchar(char);
 
 #endif

@@ -1,15 +1,4 @@
-#include "string.h"
-#include "term.h"
-
-size_t strlen(const char *s) {
-	size_t i = 0;
-
-	while (s[i]) {
-		i++;
-	}
-
-	return i;
-}
+#include "lib.h"
 
 size_t itoa(char *buf, uint32_t x) {
 	size_t i = 0;
@@ -58,38 +47,4 @@ size_t itoh(char *buf, uint32_t x) {
 	buf[j] = '\0';
 
 	return j - 2;
-}
-
-void putchar(char c) {
-	term_entry(c); // normally would place c at stdout
-}
-
-void puts(const char *s) {
-	size_t i;
-	size_t len = strlen(s);
-
-	for (i = 0; i < len; i++) {
-		putchar(s[i]);
-	}
-}
-
-void printf(const char *s, uint32_t x) {
-	size_t i;
-	size_t len = strlen(s);
-	char buf[11];
-
-	for (i = 0; i < len; i++) {
-		if (s[i] == '%') {
-			++i;
-			if (s[i] == 'd') {
-				itoa(buf, x);
-				puts(buf);
-			} else if (s[i] == 'x') {
-				itoh(buf, x);
-				puts(buf);
-			}
-		} else {
-			putchar(s[i]);
-		}
-	}
 }
