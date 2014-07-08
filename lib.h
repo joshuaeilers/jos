@@ -6,6 +6,6 @@
 
 #define MAX_UINT32_LENGTH 10
 
-size_t itoa(char *, uint32_t, uint16_t);
+char *itoa(char *, uint32_t, uint16_t);
 
 #endif

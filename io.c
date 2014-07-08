@@ -19,8 +19,8 @@ void puts(const char *s) {
 
 void printf(const char *s, ...) {
 	size_t i;
-	size_t len = strlen(s);
 	char buf[MAX_UINT32_LENGTH + 1];
+	size_t len = strlen(s);
 	va_list arg_list;
 
 	va_start(arg_list, s);

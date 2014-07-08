@@ -8,6 +8,7 @@ int main() {
 	printf("Hello world!\n", 0);
 	printf("Goodbye %s %s %s!\n", "world", "world", "world");
 
+	printf("test fail %d %d %d\n", 7, 8, 9);
 	printf("real printf %d %x\n", 0, 0);
 	printf("real printf %d %x\n", 1, 1);
 	printf("real printf %d %x\n", 2, 2);
