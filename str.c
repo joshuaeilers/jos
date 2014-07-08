@@ -1,11 +1,9 @@
 #include "str.h"
 
 size_t strlen(const char *s) {
-	size_t i = 0;
+	register const char *r;
 
-	while (s[i]) {
-		i++;
-	}
+	for (r = s; *r; r++);
 
-	return i;
+	return (r - s);
 }

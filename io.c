@@ -20,7 +20,7 @@ void puts(const char *s) {
 void printf(const char *s, ...) {
 	size_t i;
 	size_t len = strlen(s);
-	char buf[12];
+	char buf[MAX_UINT32_LENGTH + 1];
 	va_list arg_list;
 
 	va_start(arg_list, s);
@@ -28,12 +28,11 @@ void printf(const char *s, ...) {
 	for (i = 0; i < len; i++) {
 		if (s[i] == '%') {
 			++i;
+
 			if (s[i] == 'd') {
-				itoa(buf, va_arg(arg_list, uint32_t));
-				puts(buf);
+				puts(itoa(buf, va_arg(arg_list, uint32_t), 10));
 			} else if (s[i] == 'x') {
-				itoh(buf, va_arg(arg_list, uint32_t));
-				puts(buf);
+				puts(itoa(buf, va_arg(arg_list, uint32_t), 16));
 			} else if (s[i] == 's') {
 				puts(va_arg(arg_list, const char *));
 			} else {

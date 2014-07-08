@@ -18,7 +18,7 @@ int main() {
 	printf("real printf %d %x %d\n", 11, 11, 12);
 	printf("real printf %d %x\n", 128, 128);
 	printf("real printf %d %x\n", 10, 0xA);
-	printf("real printf %d %s\n", 10, 0xA);
+	printf("real real %l %d\n", 6, 10);
 
 	return 1;
 }

@@ -4,7 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-size_t itoa(char *, uint32_t);
-size_t itoh(char *, uint32_t);
+#define MAX_UINT32_LENGTH 10
+
+size_t itoa(char *, uint32_t, uint16_t);
 
 #endif
