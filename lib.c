@@ -21,3 +21,24 @@ char *itoa(char *buf, uint32_t x, uint16_t base) {
 
 	return &buf[i];
 }
+
+void *memcpy(void *dest, const void *src, size_t n) {
+	const char *s = src;
+	char *d = dest;
+
+	while (n--) {
+		*d++ = *s++;
+	}
+
+	return dest;
+}
+
+void *memsetw(void *dest, uint16_t v, size_t n) {
+	uint16_t *d = dest;
+
+	while (n--) {
+		*d++ = v;
+	}
+
+	return dest;
+}

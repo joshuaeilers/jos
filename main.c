@@ -3,23 +3,33 @@
 #include "term.h"
 
 int main() {
+	int i;
+	int j;
+
 	init();
 
-	printf("Hello world!\n", 0);
-	printf("Goodbye %s %s %s!\n", "world", "world", "world");
+	// issue is when we try to print to the last screen position (80)
+	for (i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
+		printf("0");
+	}
 
-	printf("test fail %d %d %d\n", 7, 8, 9);
-	printf("real printf %d %x\n", 0, 0);
-	printf("real printf %d %x\n", 1, 1);
-	printf("real printf %d %x\n", 2, 2);
-	printf("real printf %d %x\n", 3, 4);
-	printf("real printf %d %x\n", 13, 15);
-	printf("real printf %d %x\n", 1337, 1337);
-	printf("real printf %d %x\n", (uint32_t) 4294967295, (uint32_t) 4294967295);
-	printf("real printf %d %x %d\n", 11, 11, 12);
-	printf("real printf %d %x\n", 128, 128);
-	printf("real printf %d %x\n", 10, 0xA);
-	printf("real real %l %d\n", 6, 10);
+	for (i = 0; i < VGA_WIDTH; i++) {
+		printf("1");
+	}
+
+	for (i = 0; i < VGA_WIDTH; i++) {
+		printf("2");
+	}
+
+	for (i = 0; i < VGA_WIDTH; i++) {
+		printf("3");
+	}
+
+	for (i = 0; i < VGA_WIDTH / 10; i++) {
+		for (j = 0; j < 10; j++) {
+			printf("%d", j);
+		}
+	}
 
 	return 1;
 }
