@@ -8,7 +8,6 @@ int main() {
 
 	init();
 
-	// issue is when we try to print to the last screen position (80)
 	for (i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
 		printf("0");
 	}
