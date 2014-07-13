@@ -1,5 +1,4 @@
 #include <stddef.h>
-#include <stdint.h>
 #include "term.h"
 #include "lib.h"
 
@@ -21,23 +20,22 @@ void term_init() {
 	}
 }
 
-void term_putchar(char c) {
+void term_putchar(uint8_t c) {
 	if (c == '\n') {
 		term_col = 0;
 		term_row++;
 	} else if (c >= ' ') {
 		term_buf[term_row * VGA_WIDTH + term_col] = term_char(c, term_rgb);
 
-		// if the next char to print will hit the wall
 		if (++term_col >= VGA_WIDTH) {
 			term_col = 0;
 			term_row++;
 		}
 	}
 
-	if (term_row > VGA_HEIGHT) {
-		memcpy(term_buf, term_buf + VGA_WIDTH, VGA_HEIGHT * VGA_WIDTH * 2);
-		memsetw(term_buf + (VGA_HEIGHT * VGA_WIDTH), term_char(' ', term_rgb), VGA_WIDTH);
-		term_row = VGA_HEIGHT;
+	if (term_row >= VGA_HEIGHT) {
+		memcpy(term_buf, term_buf + VGA_WIDTH, (VGA_HEIGHT - 1) * VGA_WIDTH * sizeof(uint16_t));
+		memsetw(term_buf + (VGA_HEIGHT - 1) * VGA_WIDTH, term_char(' ', term_rgb), VGA_WIDTH);
+		term_row = VGA_HEIGHT - 1;
 	}
 }

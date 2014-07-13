@@ -1,10 +1,33 @@
 #include "main.h"
 #include "io.h"
 #include "term.h"
+#include <stddef.h>
+#include <stdint.h>
 
-int main() {
-	int i;
-	int j;
+/*
+struct gdt_entry {
+	uint16_t limit_low;
+	uint16_t base_low;
+	uint8_t base_middle;
+	uint8_t access;
+	uint8_t granularity;
+	uint8_t base_high;
+} __attribute__ ((packed));
+
+struct gdt_ptr {
+	uint16_t limit;
+	uint32_t base;
+} __attribute__ ((packed));
+
+struct gdt_entry gdt[3];
+struct gdt_ptr gp;
+
+extern void gdt_flush();
+*/
+
+void kernel_main() {
+	size_t i;
+	size_t j;
 
 	init();
 
@@ -30,7 +53,11 @@ int main() {
 		}
 	}
 
-	return 1;
+	for (i = 0; i < VGA_WIDTH; i++) {
+		printf("4");
+	}
+
+	printf("hi");
 }
 
 void init() {
