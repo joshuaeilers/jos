@@ -1,6 +1,15 @@
-#include <stddef.h>
 #include "term.h"
 #include "lib.h"
+#include <stddef.h>
+
+#define term_char(c, rgb) c | rgb << 8
+#define term_rgb(fg, bg) fg | bg << 4
+#define is_print(c) (c >= 0x20 && c <= 0x7e)
+#define VGA_MEM_START 0xb8000
+#define VGA_HEIGHT 25
+#define VGA_WIDTH 80
+#define BG 0
+#define FG 2
 
 size_t term_row;
 size_t term_col;
@@ -24,7 +33,7 @@ void term_putchar(uint8_t c) {
 	if (c == '\n') {
 		term_col = 0;
 		term_row++;
-	} else if (c >= ' ') {
+	} else if (is_print(c)) {
 		term_buf[term_row * VGA_WIDTH + term_col] = term_char(c, term_rgb);
 
 		if (++term_col >= VGA_WIDTH) {

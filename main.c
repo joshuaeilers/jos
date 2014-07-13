@@ -2,7 +2,6 @@
 #include "io.h"
 #include "term.h"
 #include <stddef.h>
-#include <stdint.h>
 
 /*
 struct gdt_entry {
@@ -31,29 +30,29 @@ void kernel_main() {
 
 	init();
 
-	for (i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
+	for (i = 0; i < 80 * 80; i++) {
 		printf("0");
 	}
 
-	for (i = 0; i < VGA_WIDTH; i++) {
+	for (i = 0; i < 80; i++) {
 		printf("1");
 	}
 
-	for (i = 0; i < VGA_WIDTH; i++) {
+	for (i = 0; i < 80; i++) {
 		printf("2");
 	}
 
-	for (i = 0; i < VGA_WIDTH; i++) {
+	for (i = 0; i < 80; i++) {
 		printf("3");
 	}
 
-	for (i = 0; i < VGA_WIDTH / 10; i++) {
+	for (i = 0; i < 80 / 10; i++) {
 		for (j = 0; j < 10; j++) {
 			printf("%d", j);
 		}
 	}
 
-	for (i = 0; i < VGA_WIDTH; i++) {
+	for (i = 0; i < 80; i++) {
 		printf("4");
 	}
 

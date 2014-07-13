@@ -9,39 +9,37 @@ void putchar(char c) {
 }
 
 void puts(const char *s) {
-	size_t i;
-	size_t len = strlen(s);
-
-	for (i = 0; i < len; i++) {
-		putchar(s[i]);
+	while (*s) {
+		putchar(*s);
+		++s;
 	}
 }
 
 void printf(const char *s, ...) {
-	size_t i;
 	char buf[MAX_UINT32_LENGTH + 1];
-	size_t len = strlen(s);
 	va_list arg_list;
 
 	va_start(arg_list, s);
 
-	for (i = 0; i < len; i++) {
-		if (s[i] == '%') {
-			++i;
+	while (*s) {
+		if (*s == '%') {
+			++s;
 
-			if (s[i] == 'd') {
+			if (*s == 'd') {
 				puts(itoa(buf, va_arg(arg_list, uint32_t), 10));
-			} else if (s[i] == 'x') {
+			} else if (*s == 'x') {
 				puts(itoa(buf, va_arg(arg_list, uint32_t), 16));
-			} else if (s[i] == 's') {
+			} else if (*s == 's') {
 				puts(va_arg(arg_list, const char *));
 			} else {
 				puts("Invalid printf format!\n");
 				break;
 			}
 		} else {
-			putchar(s[i]);
+			putchar(*s);
 		}
+
+		++s;
 	}
 
 	va_end(arg_list);

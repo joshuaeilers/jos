@@ -19,7 +19,7 @@ char *itoa(char *buf, uint32_t x, uint16_t base) {
 		buf[--i] = '0';
 	}
 
-	return &buf[i];
+	return (buf + i);
 }
 
 void *memcpy(void *dest, const void *src, size_t n) {
