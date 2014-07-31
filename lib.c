@@ -22,39 +22,31 @@ char *itoa(char *buf, uint32_t x, uint16_t base) {
 	return (buf + i);
 }
 
-void *memcpy(void *dest, const void *src, size_t n) {
-	const uint8_t *s = src;
-	uint8_t *d = dest;
-	uint32_t *s4 = (uint32_t *) src;
-	uint32_t *d4 = dest;
+void memcpy(void *dest, const void *src, size_t n) {
+	register const uint32_t *s = (uint32_t *) src;
+	register uint32_t *d = dest;
+	register const uint8_t *s1;
+	register uint8_t *d1;
 
 	// how many 4 byte chunks can we do first
-	size_t n4 = n / sizeof(uint32_t);
-	size_t nr = n % sizeof(uint32_t);
-
-	while (n4--) {
-		*d4++ = *s4++;
+	while (n >= 4) {
+		*d++ = *s++;
+		n -= 4;
 	}
 
-	// are there any bytes left?
-	if (nr > 0) {
-		d = (uint8_t *) d4;
-		s = (const uint8_t *) s4;
+	// are there any single bytes left?
+	s1 = (uint8_t *) s;
+	d1 = (uint8_t *) d;
 
-		while (nr--) {
-			*d++ = *s++;
-		}
+	while (n-- > 0) {
+		*d1++ = *s1++;
 	}
-
-	return dest;
 }
 
-void *memsetw(void *dest, uint16_t v, size_t n) {
-	uint16_t *d = dest;
+void memsetw(void *dest, uint16_t v, size_t n) {
+	register uint16_t *d;
 
-	while (n--) {
-		*d++ = v;
+	for (d = dest; n > 0; --n, ++d) {
+		*d = v;
 	}
-
-	return dest;
 }

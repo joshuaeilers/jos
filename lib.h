@@ -7,7 +7,7 @@
 #define MAX_UINT32_LENGTH 10
 
 char *itoa(char *, uint32_t, uint16_t);
-void *memcpy(void *, const void *, size_t);
-void *memsetw(void *, uint16_t, size_t);
+void memcpy(void *, const void *, size_t);
+void memsetw(void *, uint16_t, size_t);
 
 #endif

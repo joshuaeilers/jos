@@ -29,7 +29,7 @@ void kernel_main() {
 	size_t j;
 
 	init();
-
+	
 	for (i = 0; i < 80 * 80; i++) {
 		printf("0");
 	}
