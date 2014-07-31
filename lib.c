@@ -23,7 +23,7 @@ char *itoa(char *buf, uint32_t x, uint16_t base) {
 }
 
 void memcpy(void *dest, const void *src, size_t n) {
-	register const uint32_t *s = (uint32_t *) src;
+	register const uint32_t *s = src;
 	register uint32_t *d = dest;
 	register const uint8_t *s1;
 	register uint8_t *d1;
@@ -34,7 +34,7 @@ void memcpy(void *dest, const void *src, size_t n) {
 		n -= 4;
 	}
 
-	// are there any single bytes left?
+	// copy remaining single bytes
 	s1 = (uint8_t *) s;
 	d1 = (uint8_t *) d;
 
