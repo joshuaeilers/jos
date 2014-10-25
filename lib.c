@@ -50,3 +50,11 @@ void memsetw(void *dest, uint16_t v, size_t n) {
 		*d = v;
 	}
 }
+
+void memset(void *dest, uint8_t v, size_t n) {
+	uint8_t *d;
+
+	for (d = dest; n > 0; --n, ++d) {
+		*d = v;
+	}
+}

@@ -9,5 +9,6 @@
 char *itoa(char *, uint32_t, uint16_t);
 void memcpy(void *, const void *, size_t);
 void memsetw(void *, uint16_t, size_t);
+void memset(void *, uint8_t, size_t);
 
 #endif

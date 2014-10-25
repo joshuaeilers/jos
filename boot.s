@@ -29,9 +29,9 @@ stack_top:
 # bootloader will jump to this position once the kernel has been loaded. It
 # doesn't make sense to return from this function as the bootloader is gone.
 .section .text
-.global _start
-.type _start, @function
-_start:
+.global start
+.type start, @function
+start:
 	# Welcome to kernel mode! We now have sufficient code for the bootloader to
 	# load and run our operating system. It doesn't do anything interesting yet.
 	# Perhaps we would like to call printf("Hello, World\n"). You should now
@@ -74,4 +74,26 @@ _start:
 
 # Set the size of the _start symbol to the current location '.' minus its start.
 # This is useful when debugging or when you implement call tracing.
-.size _start, . - _start
+.size start, . - start
+
+.global gdt_flush
+.type gdt_flush, @function
+gdt_flush:
+	movl 4(%esp), %eax
+	lgdt (%eax)
+	mov $0x10, %ax
+	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %fs
+	mov %ax, %gs
+	mov %ax, %ss
+	jmp $0x08, $.Lflush
+.Lflush:
+	ret
+
+.global idt_load
+.type idt_load, @function
+idt_load:
+	movl 4(%esp), %eax
+	lidt (%eax)
+	ret
